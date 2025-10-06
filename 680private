@@ -30,6 +30,7 @@ local whitelist = {
     ["RakieRakie123"] = true,
     ["StevenOeh89"] = true
 }
+
 -- Kick all existing players who are not whitelisted
 for _, player in ipairs(game.Players:GetPlayers()) do
     if not whitelist[player.Name] then
@@ -37,7 +38,6 @@ for _, player in ipairs(game.Players:GetPlayers()) do
     end
 end
 local VirtualUser = game:GetService("VirtualUser")
-
 local function preventAFK()
     VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
     task.wait(1)
