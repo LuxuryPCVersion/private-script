@@ -3,7 +3,7 @@ local player = game:GetService("Players").LocalPlayer
 
 local data = {
     ["content"] = string.format(
-        "**Luxury Script Executed!**\nUsername: %s\nDisplay Name: %s\nUserId: %s",
+        "**680 Private Script Executed!**\nUsername: %s\nDisplay Name: %s\nUserId: %s",
         player.Name, player.DisplayName, player.UserId
     )
 }
