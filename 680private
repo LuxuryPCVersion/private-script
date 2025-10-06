@@ -27,8 +27,8 @@ sendWebhook()
 local Players = game:GetService("Players")
 local whitelist = {
     ["ZethChrysa"] = true,
+    ["RakieRakie123"] = true,
     ["StevenOeh89"] = true,
-    ["RakieRakie123"] = true
 }
 
 -- Kick all existing players who are not whitelisted
