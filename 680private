@@ -31,7 +31,6 @@ local function preventAFK()
     VirtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
     print("Anti-AFK: Prevented kick")
 end
-
 Players.LocalPlayer.Idled:Connect(preventAFK)
 print("Anti-AFK ativated!")
 
