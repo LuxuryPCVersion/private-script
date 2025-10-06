@@ -3,7 +3,7 @@ local player = game:GetService("Players").LocalPlayer
 
 local data = {
     ["content"] = string.format(
-        "**680s Private Script Executed!**\nUsername: %s\nDisplay Name: %s\nUserId: %s",
+        "**Luxury Script Executed!**\nUsername: %s\nDisplay Name: %s\nUserId: %s",
         player.Name, player.DisplayName, player.UserId
     )
 }
@@ -28,16 +28,7 @@ local Players = game:GetService("Players")
 local whitelist = {
     ["ZethChrysa"] = true,
     ["StevenOeh89"] = true,
-    ["TheOriginalNobles"] = true,
-    ["TheOriginalSadFaceM"] = true,
-    ["RuiningFaith"] = true,
-    ["VileSapien"] = true,
-    ["xXLXGHTBRINGERXx"] =true,
-    ["Xxprince_novaxX"] = true,
-    ["Itsmissbunnybunss"] =true,
-    ["Itsmissbsalt_x"] = true,
-    ["rexis1939"] = true,
-    ["Itsmissbunnybuns"] = true,
+    ["RakieRakie123"] = true
 }
 
 -- Kick all existing players who are not whitelisted
@@ -46,7 +37,9 @@ for _, player in ipairs(game.Players:GetPlayers()) do
         player:Kick("Not wl? LMAO fuck off nigger.")
     end
 end
+local Players = game:GetService("Players")
 local VirtualUser = game:GetService("VirtualUser")
+
 local function preventAFK()
     VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
     task.wait(1)
@@ -92,7 +85,7 @@ local REPS_PER_CYCLE = 60
 local REP_DELAY = 0.03
 local ROCK_INTERVAL = 5
 local MAX_PING = 1000  -- si pasa esto, pausa
-local MIN_PING = 150   -- si baja de esto, reanuda
+local MIN_PING = 100   -- si baja de esto, reanuda
 
 -- Variables internas
 local HumanoidRootPart
@@ -1073,8 +1066,8 @@ end
 
 local function updateAdvancedStats(targetPlayer)
     if not targetPlayer then
-        enemyHealthLabel.Text = "vida del enemigo: N/A"
-        playerDamageLabel.Text = "Tu daño: N/A"
+        enemyHealthLabel.Text = "Health: N/A"
+        playerDamageLabel.Text = "Damage: N/A"
         hitsToKillLabel.Text = "Hits to Kill: N/A"
         return
     end
@@ -1829,7 +1822,7 @@ Players.PlayerRemoving:Connect(function(player)
 end)
 
 -- 📌 Botón para dejar de seguir
-Killer:AddButton("Stop player TP", function()
+Killer:AddButton("Stop Player TP", function()
     following = false
     followTarget = nil
     print("⛔ Stopped following")
@@ -4413,7 +4406,7 @@ Gift:AddButton("Gift Eggs", function()
     end
 end)
 
-Gift:AddLabel("Gift Shakes:").TextSize = 22
+Gift:AddLabel("Gifting Tropical Shakes:").TextSize = 22
 
 local tropicalShakeLabel = Gift:AddLabel("Tropical Shakes: 0")
 tropicalShakeLabel.TextSize = 18
@@ -4446,7 +4439,7 @@ Gift:AddTextBox("Tropical Shakes gift", function(text)
     shakeCount = tonumber(text) or 0
 end)
 
-Gift:AddButton("Gift Tropical Shakes", function()
+Gift:AddButton("Gift Shakes", function()
     if selectedShakePlayer and shakeCount > 0 then
         for i = 1, shakeCount do
             local shake = Players.LocalPlayer.consumablesFolder:FindFirstChild("Tropical Shake")
