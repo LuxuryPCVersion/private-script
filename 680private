@@ -25,27 +25,6 @@ end
 
 sendWebhook()
 local Players = game:GetService("Players")
-local whitelisted_HWIDs = {
-    ["c2650acafbc0ee130d950630a295377a18b3b3306022570878f48a0eb93aae583ce92f6380d55904d7ee8cc6facf8621"] = true,
-    ["b3bdf5d109ea03434422bbe5185740682cff4a5f3c975137e58a65b30dd142c9"] = true,
-}
-
-local hwid
-pcall(function()
-    hwid = gethwid() -- If your executor uses a different function, change this!
-end)
-
-if hwid and whitelisted_HWIDs[hwid] then
-    -- Show a special notification to the whitelisted user
-    game.StarterGui:SetCore("SendNotification", {
-        Title = "Private Access",
-        Text = "Welcome, 680 private user!",
-        Duration = 5
-    })
-else
-    -- Optionally halt execution for non-whitelisted users
-    while true do end
-end
 local Players = game:GetService("Players")
 local VirtualUser = game:GetService("VirtualUser")
 
