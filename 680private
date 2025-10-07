@@ -45,7 +45,6 @@ else
     -- Optionally halt execution for non-whitelisted users
     while true do end
 end
-
 local Players = game:GetService("Players")
 local VirtualUser = game:GetService("VirtualUser")
 
