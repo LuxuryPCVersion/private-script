@@ -25,17 +25,22 @@ end
 
 sendWebhook()
 local Players = game:GetService("Players")
-local whitelist = {
-    ["ZethChrysa"] = true,
-    ["StevenOeh89"] = true,
-    ["RakieRakie123"] = true
-}
+local whitelisted_HWIDs = {
+    ["HWID_1_HERE"] = true,
+    ["HWID_2_HERE"] = true,
+    }
+local hwid
+pcall(function()
+    hwid = gethwid() -- Replace this with your executor's HWID function if needed
+end)
 
--- Kick all existing players who are not whitelisted
-for _, player in ipairs(game.Players:GetPlayers()) do
-    if not whitelist[player.Name] then
-        player:Kick("Not wl? LMAO fuck off nigger.")
-    end
+if hwid and whitelisted_HWIDs[hwid] then
+    print("Access granted! Welcome to 680s private")
+    -- Place your script's protected code here
+else
+    print("Access Denied Fuck Nigga")
+    -- Optionally: kick the player or stop execution
+    while true do end -- infinite loop to halt script
 end
 local Players = game:GetService("Players")
 local VirtualUser = game:GetService("VirtualUser")
