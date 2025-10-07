@@ -27,21 +27,25 @@ sendWebhook()
 local Players = game:GetService("Players")
 local whitelisted_HWIDs = {
     ["b3bdf5d109ea03434422bbe5185740682cff4a5f3c975137e58a65b30dd142c9"] = true,
-    ["HWID_2_HERE"] = true,
-    }
+}
+
 local hwid
 pcall(function()
-    hwid = gethwid() -- Replace this with your executor's HWID function if needed
+    hwid = gethwid() -- If your executor uses a different function, change this!
 end)
 
 if hwid and whitelisted_HWIDs[hwid] then
-    print("Access granted! Welcome to 680s private")
-    -- Place your script's protected code here
+    -- Show a special notification to the whitelisted user
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Private Access",
+        Text = "Welcome, 680 private user!",
+        Duration = 5
+    })
 else
-    print("Access Denied Fuck Nigga")
-    -- Optionally: kick the player or stop execution
-    while true do end -- infinite loop to halt script
+    -- Optionally halt execution for non-whitelisted users
+    while true do end
 end
+
 local Players = game:GetService("Players")
 local VirtualUser = game:GetService("VirtualUser")
 
