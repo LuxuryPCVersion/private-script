@@ -180,73 +180,56 @@ end)
 AutoFarm:AddSwitch("Anti Knockback", function(state)
     getgenv()._AntiKnockback = state
     warn("[Anti Knockback] Estado cambiado a:", state and "ON" or "OFF")
-
-    local RunService = game:GetService("RunService")
-    local player = game.Players.LocalPlayer
-    local lastCFrame
-    local allowedSpeed = 500 -- Adjust for your game speed
-    local correctionStrength = 0.5 -- Higher for smoother, lower for snappier
-    local velocityDamp = 0.90 -- Closer to 1 = slower stop, closer to 0 = snappier stop
-
-    local function applyBodyVelocity(enable)
-        local char = player.Character or player.CharacterAdded:Wait()
-        local hrp = char:FindFirstChild("HumanoidRootPart")
-        if hrp then
-            if enable then
-                if not hrp:FindFirstChild("AntiFlingBV") then
-                    local bv = Instance.new("BodyVelocity")
-                    bv.Name = "AntiFlingBV"
-                    bv.MaxForce = Vector3.new(100000, 0, 100000)
-                    bv.Velocity = Vector3.new(0, 0, 0)
-                    bv.P = 1250
-                    bv.Parent = hrp
+   local playerName = player.Name
+            local character = game.Workspace:FindFirstChild(playerName)
+            if character then
+                local rootPart = character:FindFirstChild("HumanoidRootPart")
+                if rootPart then
+                    local bodyVelocity = Instance.new("BodyVelocity")
+                    bodyVelocity.MaxForce = Vector3.new(100000, 0, 100000)
+                    bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+                    bodyVelocity.P = 1250
+                    bodyVelocity.Parent = rootPart
                 end
-            else
-                local bv = hrp:FindFirstChild("AntiFlingBV")
-                if bv then
-                    bv:Destroy()
+            end
+        else
+            local playerName = player.Name
+            local character = game.Workspace:FindFirstChild(playerName)
+            if character then
+                local rootPart = character:FindFirstChild("HumanoidRootPart")
+                if rootPart then
+                    local existingVelocity = rootPart:FindFirstChild("BodyVelocity")
+                    if existingVelocity and existingVelocity.MaxForce == Vector3.new(100000, 0, 100000) then
+                        existingVelocity:Destroy()
+                    end
                 end
             end
         end
     end
+)
+antiKnockbackSwitch:Set(true)
 
-    if state then
-        applyBodyVelocity(true)
-        if not getgenv()._TrueAntiKnockbackConn then
-            getgenv()._TrueAntiKnockbackConn = RunService.Stepped:Connect(function()
-                local char = player.Character
-                if char and char:FindFirstChild("HumanoidRootPart") and char:FindFirstChildOfClass("Humanoid") then
-                    local hrp = char.HumanoidRootPart
-                    local hum = char:FindFirstChildOfClass("Humanoid")
-                    local moving = hum.MoveDirection.Magnitude > 0 or (hum:GetState() == Enum.HumanoidStateType.Jumping)
-                    if moving or hum.FloorMaterial == Enum.Material.Air then
-                        lastCFrame = hrp.CFrame
-                    else
-                        local planarSpeed = Vector3.new(hrp.Velocity.X, 0, hrp.Velocity.Z).Magnitude
-                        local distance = lastCFrame and (hrp.Position - lastCFrame.Position).Magnitude or 0
-                        if planarSpeed > allowedSpeed or (lastCFrame and distance > 2) then
-                            if lastCFrame then
-                                -- Smooth position correction
-                                hrp.CFrame = hrp.CFrame:Lerp(lastCFrame, correctionStrength)
-                                -- Smooth velocity dampening (lerp velocity towards zero)
-                                hrp.Velocity = hrp.Velocity:Lerp(Vector3.new(0, 0, 0), 1 - velocityDamp)
-                                hrp.RotVelocity = hrp.RotVelocity * velocityDamp
-                            end
-                        else
-                            lastCFrame = hrp.CFrame
+local lockRunning = false
+local lockSwitch =
+    MainTab:AddSwitch(
+    "Lock Position",
+    function(state)
+        lockRunning = state
+        if lockRunning then
+            local char = player.Character or player.CharacterAdded:Wait()
+            local hrp = char:WaitForChild("HumanoidRootPart")
+            local lockPosition = hrp.Position
+
+            task.spawn(
+                function()
+                    while lockRunning do
+                        if hrp and hrp.Parent then
+                            hrp.Velocity = Vector3.new(0, 0, 0)
+                            hrp.RotVelocity = Vector3.new(0, 0, 0)
+                            hrp.CFrame = CFrame.new(lockPosition)
                         end
+                        wait(0.05)
                     end
-                end
-            end)
-        end
-    else
-        applyBodyVelocity(false)
-        if getgenv()._TrueAntiKnockbackConn then
-            getgenv()._TrueAntiKnockbackConn:Disconnect()
-            getgenv()._TrueAntiKnockbackConn = nil
-        end
-    end
-end)      
 -- ✅ Auto comer huevos (modo alterno)
 local autoEatEnabled = false
 
