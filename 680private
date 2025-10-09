@@ -180,8 +180,8 @@ end)
 AutoFarm:AddSwitch("Anti Knockback", function(state)
     getgenv()._AntiKnockback = state
     warn("[Anti Knockback] Estado cambiado a:", state and "ON" or "OFF")
-   local playerName = player.Name
-            local character = game.Workspace:FindFirstChild(playerName)
+    local playerName = player.Name
+    local character = game.Workspace:FindFirstChild(playerName)
             if character then
                 local rootPart = character:FindFirstChild("HumanoidRootPart")
                 if rootPart then
